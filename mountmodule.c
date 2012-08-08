@@ -120,9 +120,6 @@ initmount(void)
     add_constant_to_module(m, "MS_SYNCHRONOUS", MS_SYNCHRONOUS);
     add_constant_to_module(m, "MS_REMOUNT", MS_REMOUNT);
     add_constant_to_module(m, "MS_MANDLOCK", MS_MANDLOCK);
-    add_constant_to_module(m, "S_WRITE", S_WRITE);
-    add_constant_to_module(m, "S_APPEND", S_APPEND);
-    add_constant_to_module(m, "S_IMMUTABLE", S_IMMUTABLE);
     add_constant_to_module(m, "MS_NOATIME", MS_NOATIME);
     add_constant_to_module(m, "MS_NODIRATIME", MS_NODIRATIME);
     add_constant_to_module(m, "MS_BIND", MS_BIND);
