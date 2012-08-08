@@ -1,4 +1,3 @@
-
 Pymount
 =======
 
@@ -7,6 +6,8 @@ Python C extension for Linux's mount
 
 Usage
 -----
+
+::
 
     import mount
     mount.mount(source, target, filesystemtype, flags, data)
