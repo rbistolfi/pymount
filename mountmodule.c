@@ -88,17 +88,6 @@ static PyMethodDef MountMethods[] = {
 };
 
 
-/* Helper function for inserting a numeric constant in the Python module */
-
-void
-add_constant_to_module(PyObject *m, char * name, unsigned long clong)
-{
-    PyObject *Py_LONG_CONSTANT = PyLong_FromLong(clong);
-    Py_INCREF(Py_LONG_CONSTANT);
-    PyModule_AddObject(m, name, Py_LONG_CONSTANT);
-}
-
-
 PyMODINIT_FUNC
 initmount(void)
 {
@@ -113,31 +102,31 @@ initmount(void)
     PyModule_AddObject(m, "MountError", MountError);
 
     /* mount flags */
-    add_constant_to_module(m, "MS_RDONLY", MS_RDONLY);
-    add_constant_to_module(m, "MS_NOSUID", MS_NOSUID);
-    add_constant_to_module(m, "MS_NODEV", MS_NODEV);
-    add_constant_to_module(m, "MS_NOEXEC", MS_NOEXEC);
-    add_constant_to_module(m, "MS_SYNCHRONOUS", MS_SYNCHRONOUS);
-    add_constant_to_module(m, "MS_REMOUNT", MS_REMOUNT);
-    add_constant_to_module(m, "MS_MANDLOCK", MS_MANDLOCK);
-    add_constant_to_module(m, "MS_NOATIME", MS_NOATIME);
-    add_constant_to_module(m, "MS_NODIRATIME", MS_NODIRATIME);
-    add_constant_to_module(m, "MS_BIND", MS_BIND);
-    add_constant_to_module(m, "MS_RMT_MASK", MS_RMT_MASK);
+    PyModule_AddIntConstant(m, "MS_RDONLY", MS_RDONLY);
+    PyModule_AddIntConstant(m, "MS_NOSUID", MS_NOSUID);
+    PyModule_AddIntConstant(m, "MS_NODEV", MS_NODEV);
+    PyModule_AddIntConstant(m, "MS_NOEXEC", MS_NOEXEC);
+    PyModule_AddIntConstant(m, "MS_SYNCHRONOUS", MS_SYNCHRONOUS);
+    PyModule_AddIntConstant(m, "MS_REMOUNT", MS_REMOUNT);
+    PyModule_AddIntConstant(m, "MS_MANDLOCK", MS_MANDLOCK);
+    PyModule_AddIntConstant(m, "MS_NOATIME", MS_NOATIME);
+    PyModule_AddIntConstant(m, "MS_NODIRATIME", MS_NODIRATIME);
+    PyModule_AddIntConstant(m, "MS_BIND", MS_BIND);
+    PyModule_AddIntConstant(m, "MS_RMT_MASK", MS_RMT_MASK);
 
     /* mount flags from linux/fs.h */
-    add_constant_to_module(m, "MS_SILENT", MS_SILENT);
-    add_constant_to_module(m, "MS_STRICTATIME", MS_STRICTATIME);
-    add_constant_to_module(m, "MS_DIRSYNC", MS_DIRSYNC);
-    add_constant_to_module(m, "MS_MOVE", MS_MOVE);
-    add_constant_to_module(m, "MS_RELATIME", MS_RELATIME);
+    PyModule_AddIntConstant(m, "MS_SILENT", MS_SILENT);
+    PyModule_AddIntConstant(m, "MS_STRICTATIME", MS_STRICTATIME);
+    PyModule_AddIntConstant(m, "MS_DIRSYNC", MS_DIRSYNC);
+    PyModule_AddIntConstant(m, "MS_MOVE", MS_MOVE);
+    PyModule_AddIntConstant(m, "MS_RELATIME", MS_RELATIME);
 
     /* the magic numbers */
-    add_constant_to_module(m, "MS_MGC_VAL", MS_MGC_VAL);
-    add_constant_to_module(m, "MS_MGC_MSK", MS_MGC_MSK);
+    PyModule_AddIntConstant(m, "MS_MGC_VAL", MS_MGC_VAL);
+    PyModule_AddIntConstant(m, "MS_MGC_MSK", MS_MGC_MSK);
 
     /* flags for umount2 */
-    add_constant_to_module(m, "MNT_FORCE", MNT_FORCE);
-    add_constant_to_module(m, "MNT_DETACH", MNT_DETACH);
-    add_constant_to_module(m, "MNT_EXPIRE", MNT_EXPIRE);
+    PyModule_AddIntConstant(m, "MNT_FORCE", MNT_FORCE);
+    PyModule_AddIntConstant(m, "MNT_DETACH", MNT_DETACH);
+    PyModule_AddIntConstant(m, "MNT_EXPIRE", MNT_EXPIRE);
 }
