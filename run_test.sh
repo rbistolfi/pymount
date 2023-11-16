@@ -2,7 +2,7 @@
 
 
 LIBDIR=./build/lib*
-PYTHON=`which python`
+PYTHON=`which python3`
 
 $PYTHON setup.py build
 cp test_mount.py $LIBDIR
