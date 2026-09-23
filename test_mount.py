@@ -2,20 +2,19 @@
 
 
 import unittest
-import os, tempfile
+import os, shutil, tempfile
 import mount
 
 
+@unittest.skipUnless(os.geteuid() == 0, "mount(2) requires CAP_SYS_ADMIN")
 class MountTestCase(unittest.TestCase):
 
-    tmpdir = "/tmp/test_mount/"
-
     def setUp(self):
+        self.tmpdir = tempfile.mkdtemp(prefix="test_mount_")
         self.target = os.path.join(self.tmpdir, "target")
         self.source = os.path.join(self.tmpdir, "source")
         self.test_file = "test.txt"
 
-        os.mkdir(self.tmpdir)
         os.mkdir(self.target)
         os.mkdir(self.source)
 
@@ -44,10 +43,7 @@ class MountTestCase(unittest.TestCase):
             mount.umount2(self.target, mount.MNT_FORCE)
         except mount.MountError:
             pass
-        os.unlink(os.path.join(self.source, self.test_file))
-        os.rmdir(self.source)
-        os.rmdir(self.target)
-        os.rmdir(self.tmpdir)
+        shutil.rmtree(self.tmpdir)
 
 
 if __name__ == "__main__":
