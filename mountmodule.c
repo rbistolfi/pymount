@@ -88,16 +88,29 @@ static PyMethodDef MountMethods[] = {
 };
 
 
+static struct PyModuleDef mountmodule = {
+    PyModuleDef_HEAD_INIT,
+    "mount",
+    "Python extension for Linux mount(2)/umount(2)",
+    -1,
+    MountMethods
+};
+
+
 PyMODINIT_FUNC
-initmount(void)
+PyInit_mount(void)
 {
     PyObject *m;
 
-    m = Py_InitModule("mount", MountMethods);
+    m = PyModule_Create(&mountmodule);
     if (m == NULL)
-        return;
+        return NULL;
 
     MountError = PyErr_NewException("mount.MountError", NULL, NULL);
+    if (MountError == NULL) {
+        Py_DECREF(m);
+        return NULL;
+    }
     Py_INCREF(MountError);
     PyModule_AddObject(m, "MountError", MountError);
 
@@ -129,4 +142,6 @@ initmount(void)
     PyModule_AddIntConstant(m, "MNT_FORCE", MNT_FORCE);
     PyModule_AddIntConstant(m, "MNT_DETACH", MNT_DETACH);
     PyModule_AddIntConstant(m, "MNT_EXPIRE", MNT_EXPIRE);
+
+    return m;
 }
