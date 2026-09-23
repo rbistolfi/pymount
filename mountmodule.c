@@ -18,7 +18,7 @@ mount_mount(PyObject *self, PyObject *args)
     const char *target;
     const char *filesystemtype;
     unsigned long mountflags;
-    const void *data;
+    const void *data = NULL;
     int sts;
 
     if (!PyArg_ParseTuple(args, "sssl|s", &source, &target, &filesystemtype,
