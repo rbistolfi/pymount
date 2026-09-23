@@ -9,9 +9,13 @@ set -e
 
 PYTHON=$(command -v "${PYTHON:-python3}")
 BUILDDIR=$(mktemp -d)
-trap 'rm -rf "$BUILDDIR"' EXIT
+SRCDIR=$(mktemp -d)
+trap 'rm -rf "$BUILDDIR" "$SRCDIR"' EXIT
 
-$PYTHON -m pip install --quiet --target "$BUILDDIR" .
+# pip builds in the source tree; build from a copy so no build/ dir is left
+# behind (a root-owned one would break later non-root runs).
+cp setup.py mountmodule.c "$SRCDIR"
+$PYTHON -m pip install --quiet --target "$BUILDDIR" "$SRCDIR"
 
 if [ "$(id -u)" -eq 0 ]; then
     RUN="unshare --mount --propagation private"

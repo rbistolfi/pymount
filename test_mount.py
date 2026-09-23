@@ -34,13 +34,13 @@ class MountTestCase(unittest.TestCase):
 
     def test_umount2(self):
         self.test_mount()
-        mount.umount2(self.target, mount.MNT_FORCE)
+        mount.umount2(self.target, mount.MNT_DETACH)
         self.assertFalse(os.path.exists(os.path.join(self.target,
             self.test_file)))
 
     def tearDown(self):
         try:
-            mount.umount2(self.target, mount.MNT_FORCE)
+            mount.umount2(self.target, mount.MNT_DETACH)
         except mount.MountError:
             pass
         shutil.rmtree(self.tmpdir)
